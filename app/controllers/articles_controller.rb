@@ -3,11 +3,13 @@ class ArticlesController < ApplicationController
   include ArticlesHelper
 
   def index
-  @articles = Article.all
+    @articles = Article.all
   end
 
   def show
     @article = Article.find(params[:id])
+    @comment = Comment.new
+    @comment.article_id = @article.id
   end
 
   def new
@@ -23,7 +25,7 @@ class ArticlesController < ApplicationController
   def destroy
     @article = Article.find(params[:id].to_i)
     @article.destroy
-    redirect_to "/articles"
+    redirect_to articles_path
   end
 
   def edit
